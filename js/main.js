@@ -27,49 +27,71 @@ const nebulaClouds = [
     { cx: 0.50, cy: 0.48, r: 0.80, color: [12, 28, 62],  alpha: 0.20 },
 ];
 
-function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-    createStars();
+function targetCount() {
+    return Math.floor((canvas.width * canvas.height) / 2200);
+}
+
+function makeStar(cx, cy) {
+    const tier     = Math.random();
+    const isBright = tier < 0.05;
+    const isMid    = tier < 0.20;
+    // Spawn at a random angle, small radius from center — spread enough to avoid clumping
+    const angle  = Math.random() * Math.PI * 2;
+    const radius = Math.random() * 120;
+    const x = cx !== undefined ? cx + Math.cos(angle) * radius : Math.random() * canvas.width;
+    const y = cy !== undefined ? cy + Math.sin(angle) * radius : Math.random() * canvas.height;
+    return {
+        x,
+        y,
+        drift:     isBright ? 0.12 + Math.random() * 0.08
+                 : isMid    ? 0.04 + Math.random() * 0.04
+                 :             0.01 + Math.random() * 0.02,
+        size:      isBright ? Math.random() * 2.0 + 1.6
+                 : isMid    ? Math.random() * 1.0 + 0.7
+                 :             Math.random() * 0.8 + 0.2,
+        baseAlpha: isBright ? Math.random() * 0.3  + 0.70
+                 : isMid    ? Math.random() * 0.4  + 0.30
+                 :             Math.random() * 0.50 + 0.12,
+        speed:     Math.random() * 0.010 + 0.003,
+        offset:    Math.random() * Math.PI * 2,
+        hue:       Math.random() < 0.18
+                      ? [180, 210, 255]      // cool blue-white
+                      : Math.random() < 0.08
+                          ? [255, 230, 170]  // warm amber
+                          : [228, 220, 208], // neutral cream
+    };
 }
 
 function createStars() {
     stars = [];
-    const area  = canvas.width * canvas.height;
-    const count = Math.floor(area / 1100);   // dense field
+    const count = targetCount();
+    for (let i = 0; i < count; i++) stars.push(makeStar());
+}
 
-    for (let i = 0; i < count; i++) {
-        const tier = Math.random();
-        // Tier: 5% bright accent stars, 15% medium, 80% fine
-        const isBright = tier < 0.05;
-        const isMid    = tier < 0.20;
+function resize() {
+    const prevW = canvas.width  || window.innerWidth;
+    const prevH = canvas.height || window.innerHeight;
 
-        stars.push({
-            x:         Math.random() * canvas.width,
-            y:         Math.random() * canvas.height,
-            // drift speed — brighter stars drift faster (parallax depth)
-            drift:     isBright ? 0.12 + Math.random() * 0.08
-                     : isMid    ? 0.04 + Math.random() * 0.04
-                     :            0.01 + Math.random() * 0.02,
-            size:      isBright
-                          ? Math.random() * 2.0 + 1.6
-                          : isMid
-                              ? Math.random() * 1.0 + 0.7
-                              : Math.random() * 0.8 + 0.2,
-            baseAlpha: isBright
-                          ? Math.random() * 0.3 + 0.70
-                          : isMid
-                              ? Math.random() * 0.4 + 0.30
-                              : Math.random() * 0.50 + 0.12,
-            speed:     Math.random() * 0.010 + 0.003,
-            offset:    Math.random() * Math.PI * 2,
-            // Color: mostly cool blue-white to match ocean; occasional warm
-            hue:       Math.random() < 0.18
-                          ? [180, 210, 255]      // cool blue-white
-                          : Math.random() < 0.08
-                              ? [255, 230, 170]  // warm amber
-                              : [228, 220, 208], // neutral cream
-        });
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    if (stars.length === 0) {
+        createStars();
+        return;
+    }
+
+    // Scale existing star positions to the new canvas size — no flash/reset
+    const scaleX = canvas.width  / prevW;
+    const scaleY = canvas.height / prevH;
+    stars.forEach(s => { s.x *= scaleX; s.y *= scaleY; });
+
+    // Trim or top-up star count to match new target
+    const target = targetCount();
+    if (stars.length > target) {
+        stars.length = target;
+    } else {
+        const cx = canvas.width / 2, cy = canvas.height / 2;
+        while (stars.length < target) stars.push(makeStar(cx, cy));
     }
 }
 
@@ -114,11 +136,13 @@ function drawStars() {
         star.x += (dx / dist) * star.drift;
         star.y += (dy / dist) * star.drift;
 
-        // Respawn star at center when it drifts off-screen
+        // Respawn star near center when it drifts off-screen
         if (star.x < -10 || star.x > canvas.width + 10 ||
             star.y < -10 || star.y > canvas.height + 10) {
-            star.x = cx + (Math.random() - 0.5) * 40;
-            star.y = cy + (Math.random() - 0.5) * 40;
+            const angle  = Math.random() * Math.PI * 2;
+            const radius = Math.random() * 120;
+            star.x = cx + Math.cos(angle) * radius;
+            star.y = cy + Math.sin(angle) * radius;
         }
 
         const twinkle = Math.sin(time * star.speed + star.offset);
