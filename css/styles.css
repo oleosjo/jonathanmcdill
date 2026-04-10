@@ -75,13 +75,15 @@ a   { color: inherit; }
 .cursor {
     font-family: var(--font-mono);
     color: var(--mint);
-    animation: blink 1.1s step-end infinite;
+    animation: blink 1.1s steps(1) infinite;
     margin-left: 2px;
+    will-change: opacity;
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
+    0%        { opacity: 1; }
     50%       { opacity: 0; }
+    100%      { opacity: 1; }
 }
 
 /* ============================================================
