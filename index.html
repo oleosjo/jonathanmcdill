@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonathan McDill — Frontend Developer</title>
+    <meta name="description" content="Jonathan McDill is a Senior Frontend Developer based in Bennington, Vermont, building at the intersection of craft and technology.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Nebula / star field canvas — fixed behind everything -->
+    <canvas id="starfield"></canvas>
+
+    <!-- ============================================================
+         NAVIGATION
+    ============================================================ -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo"><span class="mono-prefix">~/</span>jm</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+         HERO — Register room looking out at the nebula
+    ============================================================ -->
+    <section id="hero" class="hero">
+
+        <!-- Room geometry — overlaid on the nebula canvas -->
+        <div class="hero-room" aria-hidden="true">
+            <div class="room-left-wall"></div>
+            <div class="room-ceiling"></div>
+            <div class="room-floor">
+                <div class="floor-shadows"></div>
+            </div>
+            <div class="window-mullion"></div>
+            <div class="window-sill"></div>
+        </div>
+
+        <!-- Hero text floats in the "window" area -->
+        <div class="hero-content">
+            <span class="hero-eyebrow"><span class="mono-prefix">$</span> whoami</span>
+            <h1 class="hero-name">
+                <span class="name-first">Jonathan</span>
+                <span class="name-last">McDill</span><span class="cursor" aria-hidden="true">_</span>
+            </h1>
+            <p class="hero-role"><span class="mono-prefix">//</span> Senior Frontend Developer</p>
+            <a href="#about" class="hero-enter">
+                <span class="mono-prefix">&gt;</span>
+                <span>explore</span>
+                <svg width="22" height="8" viewBox="0 0 22 8" fill="none" aria-hidden="true">
+                    <path d="M0 4H20M20 4L16 1M20 4L16 7" stroke="currentColor" stroke-width="1"/>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Scroll cue -->
+        <div class="hero-scroll-cue" aria-hidden="true">
+            <div class="scroll-line"></div>
+        </div>
+
+    </section>
+
+    <!-- ============================================================
+         ABOUT
+    ============================================================ -->
+    <section id="about" class="about">
+        <div class="section-inner about-grid">
+
+            <div class="about-photo-col">
+                <div class="photo-frame">
+                    <img src="assets/profilepic.jpeg" alt="Jonathan McDill">
+                </div>
+                <div class="photo-location">Bennington, VT</div>
+            </div>
+
+            <div class="about-text-col">
+                <div class="section-label">// whoami</div>
+                <h2 class="section-title">Jonathan McDill</h2>
+                <p class="section-subtitle">~20 yrs shipping things for the web</p>
+                <p class="about-body">
+                    I'm a frontend developer based in Bennington, Vermont with nearly two decades of experience building for the web. Currently Senior Frontend Developer at VAULT Innovation — a digital product studio behind 60+ product launches.
+                </p>
+                <p class="about-body">
+                    I care about the craft of the web: the kind of work where form and function are inseparable, where an elegant solution is also the right one. I've worked across eras of the frontend — PHP and WordPress, Ember and Angular, to React and Astro today — but the question that drives me is always the same: how does this feel to use?
+                </p>
+                <div class="about-links">
+                    <a href="https://github.com/oleosjo" class="text-link" target="_blank" rel="noopener noreferrer">
+                        GitHub &#8599;
+                    </a>
+                    <a href="https://www.linkedin.com/in/jonathan-mcdill" class="text-link" target="_blank" rel="noopener noreferrer">
+                        LinkedIn &#8599;
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         EXPERIENCE
+    ============================================================ -->
+    <section id="experience" class="experience">
+        <div class="section-inner">
+
+            <div class="section-label">// work_history</div>
+            <h2 class="section-title">Experience</h2>
+
+            <div class="timeline">
+
+                <!-- VAULT Innovation -->
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-star"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-body">
+                        <div class="timeline-meta">
+                            <span class="timeline-period">Aug 2020 &mdash; Present</span>
+                            <span class="timeline-sep">&middot;</span>
+                            <span class="timeline-location">Chicago, IL &middot; Remote</span>
+                        </div>
+                        <h3 class="timeline-role">Senior Frontend Developer</h3>
+                        <div class="timeline-company">VAULT Innovation &mdash; 5 yrs 9 mos</div>
+                        <p class="timeline-desc">
+                            Award-winning digital product studio building custom software and digital experiences for clients across industries. Delivered polished, performant interfaces across 60+ product launches; led frontend architecture decisions and design system implementation.
+                        </p>
+                        <div class="timeline-subgroup">
+                            <div class="timeline-subrole">
+                                <span class="timeline-subrole-title">Senior Frontend Developer</span>
+                                <span class="timeline-subrole-meta">Contract &middot; Jun 2023 &ndash; Present</span>
+                            </div>
+                            <div class="timeline-subrole">
+                                <span class="timeline-subrole-title">Senior Frontend Developer</span>
+                                <span class="timeline-subrole-meta">Full-time &middot; Aug 2020 &ndash; Jun 2023</span>
+                            </div>
+                        </div>
+                        <div class="timeline-stack">
+                            <span>React.js</span>
+                            <span>React Native</span>
+                            <span>TypeScript</span>
+                            <span>Angular</span>
+                            <span>Contentstack</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Switch Four -->
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-star"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-body">
+                        <div class="timeline-meta">
+                            <span class="timeline-period">May 2017 &mdash; May 2020</span>
+                            <span class="timeline-sep">&middot;</span>
+                            <span class="timeline-location">Durham, NC</span>
+                        </div>
+                        <h3 class="timeline-role">Senior Frontend Developer</h3>
+                        <div class="timeline-company">Switch Four</div>
+                        <div class="timeline-stack">
+                            <span>JavaScript</span>
+                            <span>React</span>
+                            <span>HTML / CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Curious Minds Media -->
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-star"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-body">
+                        <div class="timeline-meta">
+                            <span class="timeline-period">Nov 2014 &mdash; May 2017</span>
+                        </div>
+                        <h3 class="timeline-role">Contract Developer</h3>
+                        <div class="timeline-company">Curious Minds Media</div>
+                        <p class="timeline-desc">Built various frontend JavaScript-based applications.</p>
+                        <div class="timeline-stack">
+                            <span>JavaScript</span>
+                            <span>HTML / CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Designing Solutions + Innerserve (overlapping contract period) -->
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-star"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-body">
+                        <div class="timeline-meta">
+                            <span class="timeline-period">2013 &mdash; 2016</span>
+                            <span class="timeline-sep">&middot;</span>
+                            <span class="timeline-location">Durham, NC</span>
+                        </div>
+                        <h3 class="timeline-role">Contract Web Developer</h3>
+                        <div class="timeline-company">Designing Solutions &amp; Innerserve Technologies</div>
+                        <div class="timeline-stack">
+                            <span>JavaScript</span>
+                            <span>PHP</span>
+                            <span>HTML / CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Southeastern Baptist Theological Seminary -->
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-star"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-body">
+                        <div class="timeline-meta">
+                            <span class="timeline-period">2008 &mdash; May 2013</span>
+                        </div>
+                        <h3 class="timeline-role">Software Engineer</h3>
+                        <div class="timeline-company">Southeastern Baptist Theological Seminary</div>
+                        <p class="timeline-desc">Maintenance and customization of the Student Portal. Web application development for institutional systems.</p>
+                        <div class="timeline-stack">
+                            <span>PHP</span>
+                            <span>JavaScript</span>
+                            <span>Web Applications</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Full Throttle Development -->
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-star"></div>
+                    </div>
+                    <div class="timeline-body">
+                        <div class="timeline-meta">
+                            <span class="timeline-period">Mar 2009 &mdash; Mar 2012</span>
+                        </div>
+                        <h3 class="timeline-role">Web Developer</h3>
+                        <div class="timeline-company">Full Throttle Development</div>
+                        <p class="timeline-desc">PHP / WordPress development.</p>
+                        <div class="timeline-stack">
+                            <span>PHP</span>
+                            <span>WordPress</span>
+                            <span>HTML / CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="education">
+                <div class="section-label small">// education</div>
+                <div class="edu-item">
+                    <h3 class="edu-degree">Christian Studies &middot; Minor in Apologetics</h3>
+                    <div class="edu-school">The College at Southeastern</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         PROJECTS
+    ============================================================ -->
+    <section id="projects" class="projects">
+        <div class="section-inner">
+
+            <div class="section-label">// selected_work</div>
+            <h2 class="section-title">Projects</h2>
+
+            <div class="projects-grid">
+
+                <a href="https://github.com/oleosjo/peanut" class="project-card" target="_blank" rel="noopener noreferrer">
+                    <div class="project-terminal-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+                    <div class="project-header">
+                        <span class="project-constellation-dot" aria-hidden="true">&#10022;</span>
+                        <span class="project-lang">JavaScript &middot; WebGL</span>
+                    </div>
+                    <h3 class="project-name">Peanut</h3>
+                    <p class="project-desc">A single perfect peanut rendered in interactive 3D. A meditation on craft, minimalism, and the beautifully absurd — built with Google&rsquo;s model-viewer.</p>
+                    <div class="project-footer">
+                        <span class="project-view">View project &rarr;</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/oleosjo/spooky-elements" class="project-card" target="_blank" rel="noopener noreferrer">
+                    <div class="project-terminal-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+                    <div class="project-header">
+                        <span class="project-constellation-dot" aria-hidden="true">&#10022;</span>
+                        <span class="project-lang">Node.js &middot; Express</span>
+                    </div>
+                    <h3 class="project-name">Spooky Elements</h3>
+                    <p class="project-desc">A collaborative Halloween story generator. Users contribute elements through a secure portal; the app recombines them into unexpected narratives.</p>
+                    <div class="project-footer">
+                        <span class="project-view">View project &rarr;</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/oleosjo/waynemcdill" class="project-card" target="_blank" rel="noopener noreferrer">
+                    <div class="project-terminal-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+                    <div class="project-header">
+                        <span class="project-constellation-dot" aria-hidden="true">&#10022;</span>
+                        <span class="project-lang">HTML &middot; CSS &middot; PHP</span>
+                    </div>
+                    <h3 class="project-name">Wayne McDill</h3>
+                    <p class="project-desc">A personal website built for author and theologian Wayne McDill. A labor of love in service of someone who shaped how I think about language, logic, and meaning.</p>
+                    <div class="project-footer">
+                        <span class="project-view">View project &rarr;</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/oleosjo/jamie-tries" class="project-card" target="_blank" rel="noopener noreferrer">
+                    <div class="project-terminal-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+                    <div class="project-header">
+                        <span class="project-constellation-dot" aria-hidden="true">&#10022;</span>
+                        <span class="project-lang">Astro &middot; TypeScript</span>
+                    </div>
+                    <h3 class="project-name">jamie-tries</h3>
+                    <p class="project-desc">An Astro site with Keystatic CMS integration — exploring modern content-driven architecture and the boundary between static generation and editorial workflow.</p>
+                    <div class="project-footer">
+                        <span class="project-view">View project &rarr;</span>
+                    </div>
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SKILLS
+    ============================================================ -->
+    <section id="skills" class="skills">
+        <div class="section-inner">
+
+            <div class="section-label">// tech_stack</div>
+
+            <div class="skills-grid">
+
+                <div class="skill-group">
+                    <h3 class="skill-group-title"><span class="mono-prefix">const</span> frontend <span class="mono-prefix">=</span> [</h3>
+                    <ul>
+                        <li>React / Next.js</li>
+                        <li>TypeScript</li>
+                        <li>Astro</li>
+                        <li>Angular</li>
+                        <li>Ember.js</li>
+                    </ul>
+                </div>
+
+                <div class="skill-group">
+                    <h3 class="skill-group-title"><span class="mono-prefix">const</span> platform <span class="mono-prefix">=</span> [</h3>
+                    <ul>
+                        <li>HTML / CSS</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>WebGL / 3D</li>
+                        <li>Canvas API</li>
+                        <li>Web Animation</li>
+                    </ul>
+                </div>
+
+                <div class="skill-group">
+                    <h3 class="skill-group-title"><span class="mono-prefix">const</span> backend <span class="mono-prefix">=</span> [</h3>
+                    <ul>
+                        <li>Node.js / Express</li>
+                        <li>PHP</li>
+                        <li>Git / GitHub</li>
+                        <li>Contentstack CMS</li>
+                        <li>Keystatic</li>
+                    </ul>
+                </div>
+
+                <div class="skill-group">
+                    <h3 class="skill-group-title"><span class="mono-prefix">const</span> approach <span class="mono-prefix">=</span> [</h3>
+                    <ul>
+                        <li>Component Architecture</li>
+                        <li>Design Systems</li>
+                        <li>Performance</li>
+                        <li>Accessibility</li>
+                        <li>Collaborative Process</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         CONTACT
+    ============================================================ -->
+    <footer id="contact" class="contact">
+
+        <!-- Register room trim reappears at the footer -->
+        <div class="contact-room" aria-hidden="true">
+            <div class="contact-wall-left"></div>
+            <div class="contact-floor-strip"></div>
+        </div>
+
+        <div class="section-inner">
+            <div class="section-label">// get_in_touch</div>
+            <h2 class="contact-heading">Let's work<br>together</h2>
+            <p class="contact-body">
+                Open to opportunities in frontend development &mdash; especially work where craft, curiosity, and collaboration matter.
+            </p>
+            <div class="contact-links">
+                <a href="mailto:hello@jonathanmcdill.com" class="contact-email">
+                    hello@jonathanmcdill.com
+                </a>
+                <div class="contact-social">
+                    <a href="https://github.com/oleosjo" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://www.linkedin.com/in/jonathan-mcdill" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-base">
+            <span>Jonathan McDill &middot; Bennington, VT</span>
+            <span>&copy; 2024</span>
+        </div>
+
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
