@@ -47,6 +47,10 @@ function createStars() {
         stars.push({
             x:         Math.random() * canvas.width,
             y:         Math.random() * canvas.height,
+            // drift speed — brighter stars drift faster (parallax depth)
+            drift:     isBright ? 0.12 + Math.random() * 0.08
+                     : isMid    ? 0.04 + Math.random() * 0.04
+                     :            0.01 + Math.random() * 0.02,
             size:      isBright
                           ? Math.random() * 2.0 + 1.6
                           : isMid
@@ -99,7 +103,24 @@ function drawNebula() {
 }
 
 function drawStars() {
+    const cx = canvas.width  / 2;
+    const cy = canvas.height / 2;
+
     stars.forEach(star => {
+        // Drift outward from center — flying through space
+        const dx = star.x - cx;
+        const dy = star.y - cy;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        star.x += (dx / dist) * star.drift;
+        star.y += (dy / dist) * star.drift;
+
+        // Respawn star at center when it drifts off-screen
+        if (star.x < -10 || star.x > canvas.width + 10 ||
+            star.y < -10 || star.y > canvas.height + 10) {
+            star.x = cx + (Math.random() - 0.5) * 40;
+            star.y = cy + (Math.random() - 0.5) * 40;
+        }
+
         const twinkle = Math.sin(time * star.speed + star.offset);
         const alpha   = star.baseAlpha * (0.65 + 0.35 * twinkle);
         const [r, g, b] = star.hue;
