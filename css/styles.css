@@ -984,8 +984,20 @@ footer {
   align-items: center;
   font-family: var(--font-mono);
   font-size: 10px;
-  color: rgba(104, 112, 160, 0.45);
+  color: rgba(168, 175, 210, 0.7);
   letter-spacing: 0.04em;
+}
+
+.footer-base a {
+  color: rgba(168, 175, 210, 0.7);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(168, 175, 210, 0.25);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.footer-base a:hover {
+  color: rgba(200, 205, 230, 0.9);
+  border-color: rgba(200, 205, 230, 0.5);
 }
 
 /* ============================================================
