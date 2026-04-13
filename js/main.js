@@ -260,6 +260,40 @@ document.querySelectorAll('.project-card').forEach((card, i) => {
 });
 
 /* ============================================================
+   FAVICON — sphere rendered to canvas
+   ============================================================ */
+
+(function () {
+    const SIZE = 64;
+    const fc   = document.createElement('canvas');
+    fc.width = fc.height = SIZE;
+    const fx = fc.getContext('2d');
+
+    // Base white circle
+    fx.beginPath();
+    fx.arc(SIZE / 2, SIZE / 2, SIZE / 2, 0, Math.PI * 2);
+    fx.fillStyle = '#ffffff';
+    fx.fill();
+
+    // Subtle shadow on the bottom-right to suggest a sphere
+    const shadow = fx.createRadialGradient(SIZE * 0.62, SIZE * 0.65, 0, SIZE / 2, SIZE / 2, SIZE / 2);
+    shadow.addColorStop(0.0, 'rgba(0,0,0,0)');
+    shadow.addColorStop(0.6, 'rgba(0,0,0,0.08)');
+    shadow.addColorStop(1.0, 'rgba(0,0,0,0.28)');
+
+    fx.beginPath();
+    fx.arc(SIZE / 2, SIZE / 2, SIZE / 2, 0, Math.PI * 2);
+    fx.fillStyle = shadow;
+    fx.fill();
+
+    const link = document.createElement('link');
+    link.rel   = 'icon';
+    link.type  = 'image/png';
+    link.href  = fc.toDataURL('image/png');
+    document.head.appendChild(link);
+}());
+
+/* ============================================================
    INIT
    ============================================================ */
 
