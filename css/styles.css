@@ -817,6 +817,17 @@ footer {
   transform: translateX(0);
 }
 
+/* Coming soon card */
+.coming-soon-card {
+  border-style: dashed;
+  opacity: 0.7;
+  cursor: default;
+}
+.coming-soon-card:hover {
+  transform: none;
+  border-color: var(--border);
+}
+
 /* ============================================================
    SKILLS — code-style layout
    ============================================================ */
