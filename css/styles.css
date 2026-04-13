@@ -22,7 +22,7 @@
 
   /* Text */
   --text: #dddaf0; /* lavender-white */
-  --text-muted: #6870a0; /* muted blue-purple */
+  --text-muted: #8088b8; /* muted blue-purple — boosted for AA contrast */
   --text-dim: #303858; /* very muted */
   --text-code: #a89ee0; /* lavender for mono/code text */
 
@@ -231,7 +231,7 @@ a {
 
 .name-first {
   display: block;
-  font-weight: 300;
+  font-weight: 400;
 }
 .name-last {
   display: block;
@@ -406,17 +406,6 @@ footer {
   object-position: center top;
   display: block;
   filter: saturate(0.85) contrast(1.05);
-}
-
-.photo-initials {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 52px;
-  color: var(--lavender-dim);
 }
 
 .photo-location {
@@ -625,7 +614,34 @@ footer {
   padding-top: 44px;
 }
 .edu-item {
-  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 0 24px;
+  margin-top: 20px;
+}
+
+.edu-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5px;
+}
+
+.edu-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--rose);
+  flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(216, 136, 160, 0.5);
+}
+
+.edu-dot-line {
+  flex: 1;
+  width: 1px;
+  margin-top: 8px;
+  background: linear-gradient(to bottom, rgba(216, 136, 160, 0.3), transparent);
+  min-height: 30px;
 }
 
 .edu-degree {
@@ -641,6 +657,34 @@ footer {
   font-size: 11px;
   color: var(--text-muted);
   letter-spacing: 0.04em;
+}
+
+
+.edu-category {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text);
+  opacity: 0.75;
+  margin-bottom: 6px;
+}
+
+.edu-course {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-muted);
+  opacity: 0.75;
+  margin-bottom: 6px;
+}
+
+.edu-detail {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+  margin-top: 4px;
 }
 
 /* ============================================================
@@ -783,7 +827,7 @@ footer {
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 56px 40px;
 }
 
@@ -803,6 +847,15 @@ footer {
 
 .skill-group ul {
   list-style: none;
+}
+.skill-group ul::after {
+  content: "]";
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--lavender);
+  padding-top: 10px;
+  letter-spacing: 0.02em;
 }
 
 .skill-group li {

@@ -9,6 +9,9 @@ const ctx    = canvas.getContext('2d');
 let stars = [];
 let time  = 0;
 let rafId;
+let nebulaCanvas = null;
+let nebulaCtx    = null;
+let nebulaDirty  = true;
 
 /* Nebula cloud config — ocean-blue dominant, matching painting #3.
    Positions are fractions of canvas size so they scale on resize. */
@@ -95,9 +98,17 @@ function resize() {
     }
 }
 
-function drawNebula() {
-    ctx.fillStyle = '#060810';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+/* Render the static nebula to an offscreen canvas (only on resize). */
+function renderNebulaToCache() {
+    if (!nebulaCanvas) {
+        nebulaCanvas = document.createElement('canvas');
+        nebulaCtx    = nebulaCanvas.getContext('2d');
+    }
+    nebulaCanvas.width  = canvas.width;
+    nebulaCanvas.height = canvas.height;
+
+    nebulaCtx.fillStyle = '#060810';
+    nebulaCtx.fillRect(0, 0, canvas.width, canvas.height);
 
     nebulaClouds.forEach(c => {
         const gx = c.cx * canvas.width;
@@ -105,23 +116,30 @@ function drawNebula() {
         const gr = c.r  * Math.max(canvas.width, canvas.height);
         const [r, g, b] = c.color;
 
-        const grad = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
+        const grad = nebulaCtx.createRadialGradient(gx, gy, 0, gx, gy, gr);
         grad.addColorStop(0,    `rgba(${r},${g},${b},${c.alpha})`);
         grad.addColorStop(0.40, `rgba(${r},${g},${b},${c.alpha * 0.40})`);
         grad.addColorStop(0.75, `rgba(${r},${g},${b},${c.alpha * 0.12})`);
         grad.addColorStop(1,    'rgba(0,0,0,0)');
 
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        nebulaCtx.fillStyle = grad;
+        nebulaCtx.fillRect(0, 0, canvas.width, canvas.height);
     });
 
     // A faint luminous horizon band — echoes the ocean/sky line in the painting
-    const horizon = ctx.createLinearGradient(0, canvas.height * 0.38, 0, canvas.height * 0.55);
+    const horizon = nebulaCtx.createLinearGradient(0, canvas.height * 0.38, 0, canvas.height * 0.55);
     horizon.addColorStop(0,   'rgba(0,0,0,0)');
     horizon.addColorStop(0.5, 'rgba(20,50,100,0.10)');
     horizon.addColorStop(1,   'rgba(0,0,0,0)');
-    ctx.fillStyle = horizon;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    nebulaCtx.fillStyle = horizon;
+    nebulaCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+    nebulaDirty = false;
+}
+
+function drawNebula() {
+    if (nebulaDirty) renderNebulaToCache();
+    ctx.drawImage(nebulaCanvas, 0, 0);
 }
 
 function drawStars() {
@@ -174,7 +192,10 @@ function drawStars() {
 }
 
 function animate() {
-    time++;
+    // Wrap time to avoid floating-point precision loss over long sessions.
+    // 2π / min(speed) ≈ 2094 frames per full cycle; 100 000 gives ~27 min
+    // of unique twinkle phase per star before seamless wrap.
+    time = (time + 1) % 100000;
     drawNebula();
     drawStars();
     rafId = requestAnimationFrame(animate);
@@ -242,11 +263,17 @@ document.querySelectorAll('.project-card').forEach((card, i) => {
    INIT
    ============================================================ */
 
+let resizeTimer;
 window.addEventListener('resize', () => {
     cancelAnimationFrame(rafId);
-    resize();
-    animate();
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        resize();
+        nebulaDirty = true;
+        animate();
+    }, 100);
 }, { passive: true });
 
 resize();
+nebulaDirty = true;
 animate();
