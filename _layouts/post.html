@@ -1,0 +1,23 @@
+---
+layout: default
+---
+
+<main class="blog-post">
+  <article class="post-inner">
+    <a href="/blog/" class="post-back">
+      <span class="mono-prefix">&lt;-</span> all posts
+    </a>
+    <header class="post-header">
+      <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: "%B %-d, %Y" }}
+      </time>
+      <h1 class="post-title">{{ page.title | escape }}</h1>
+      {% if page.description %}
+        <p class="post-description">{{ page.description | escape }}</p>
+      {% endif %}
+    </header>
+    <div class="post-body">
+      {{ content }}
+    </div>
+  </article>
+</main>

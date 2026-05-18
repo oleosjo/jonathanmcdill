@@ -1,0 +1,17 @@
+title: Jonathan McDill
+description: Writing by Jonathan McDill.
+url: "https://jonathanmcdill.com"
+permalink: /blog/:title/
+timezone: America/New_York
+exclude:
+  - component-lab
+  - node_modules
+  - package.json
+  - package-lock.json
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post

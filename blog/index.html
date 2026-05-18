@@ -1,0 +1,33 @@
+---
+layout: default
+title: Blog
+description: Writing by Jonathan McDill.
+---
+
+<main class="blog-index">
+  <div class="blog-index-inner">
+    <span class="section-label"><span class="mono-prefix">#</span> blog</span>
+    <h1 class="blog-index-title">Writing</h1>
+    <p class="blog-index-sub">
+      Some of my thoughts
+    </p>
+
+    <ul class="post-list">
+      {% for post in site.posts %}
+        <li class="post-list-item">
+          <a href="{{ post.url }}">
+            <time datetime="{{ post.date | date_to_xmlschema }}">
+              {{ post.date | date: "%B %-d, %Y" }}
+            </time>
+            <h2>{{ post.title | escape }}</h2>
+            {% if post.description %}
+              <p>{{ post.description | escape }}</p>
+            {% endif %}
+          </a>
+        </li>
+      {% else %}
+        <li class="post-list-empty">No posts yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</main>

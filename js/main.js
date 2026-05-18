@@ -34,15 +34,23 @@ function targetCount() {
     return Math.floor((canvas.width * canvas.height) / 2200);
 }
 
+function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+}
+
 function makeStar(cx, cy) {
     const tier     = Math.random();
     const isBright = tier < 0.05;
     const isMid    = tier < 0.20;
-    // Spawn at a random angle, small radius from center — spread enough to avoid clumping
+    const fromCenter = cx !== undefined && cy !== undefined;
+    // New stars start close to the vanishing point, then grow as they travel outward.
     const angle  = Math.random() * Math.PI * 2;
-    const radius = Math.random() * 120;
-    const x = cx !== undefined ? cx + Math.cos(angle) * radius : Math.random() * canvas.width;
-    const y = cy !== undefined ? cy + Math.sin(angle) * radius : Math.random() * canvas.height;
+    const radius = fromCenter ? 8 + Math.random() * 28 : 0;
+    const x = fromCenter ? cx + Math.cos(angle) * radius : Math.random() * canvas.width;
+    const y = fromCenter ? cy + Math.sin(angle) * radius : Math.random() * canvas.height;
+    const maturityFrames = isBright ? 120 + Math.random() * 70
+                         : isMid    ? 90 + Math.random() * 50
+                         :             65 + Math.random() * 35;
     return {
         x,
         y,
@@ -57,12 +65,19 @@ function makeStar(cx, cy) {
                  :             Math.random() * 0.50 + 0.12,
         speed:     Math.random() * 0.010 + 0.003,
         offset:    Math.random() * Math.PI * 2,
+        age:       fromCenter ? 0 : maturityFrames,
+        maturityFrames,
         hue:       Math.random() < 0.18
                       ? [180, 210, 255]      // cool blue-white
                       : Math.random() < 0.08
                           ? [255, 230, 170]  // warm amber
                           : [228, 220, 208], // neutral cream
     };
+}
+
+function resetStar(star, cx, cy) {
+    const fresh = makeStar(cx, cy);
+    Object.assign(star, fresh);
 }
 
 function createStars() {
@@ -151,25 +166,32 @@ function drawStars() {
         const dx = star.x - cx;
         const dy = star.y - cy;
         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-        star.x += (dx / dist) * star.drift;
-        star.y += (dy / dist) * star.drift;
+        const maxDist = Math.hypot(canvas.width, canvas.height) * 0.5;
+        const depth = Math.min(1, dist / maxDist);
+        const perspective = easeOutCubic(depth);
+        const motionScale = 0.35 + perspective * 1.35;
+        star.x += (dx / dist) * star.drift * motionScale;
+        star.y += (dy / dist) * star.drift * motionScale;
+        star.age += 1;
 
         // Respawn star near center when it drifts off-screen
         if (star.x < -10 || star.x > canvas.width + 10 ||
             star.y < -10 || star.y > canvas.height + 10) {
-            const angle  = Math.random() * Math.PI * 2;
-            const radius = Math.random() * 120;
-            star.x = cx + Math.cos(angle) * radius;
-            star.y = cy + Math.sin(angle) * radius;
+            resetStar(star, cx, cy);
+            return;
         }
 
         const twinkle = Math.sin(time * star.speed + star.offset);
-        const alpha   = star.baseAlpha * (0.65 + 0.35 * twinkle);
+        const birthFade = 0.28 + Math.min(1, star.age / star.maturityFrames) * 0.72;
+        const depthScale = 0.18 + perspective * 0.82;
+        const drawSize = Math.max(0.12, star.size * depthScale * birthFade);
+        const alpha = star.baseAlpha * (0.65 + 0.35 * twinkle) *
+                      (0.26 + perspective * 0.74) * birthFade;
         const [r, g, b] = star.hue;
 
         // Soft glow halo for bright accent stars
-        if (star.size > 1.8) {
-            const glowR = star.size * 5.5;
+        if (drawSize > 1.8 && alpha > 0.08) {
+            const glowR = drawSize * 5.5;
             const glow  = ctx.createRadialGradient(
                 star.x, star.y, 0,
                 star.x, star.y, glowR
@@ -185,7 +207,7 @@ function drawStars() {
 
         // Core dot
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.arc(star.x, star.y, drawSize, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
         ctx.fill();
     });
