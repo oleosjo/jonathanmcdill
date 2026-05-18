@@ -4,7 +4,7 @@ description: This is an article about the end stage of AI for the software indus
 date: 2025-02-02
 ---
 
-_This was original a Medium article I wrote way back in early 2025._
+_This was originally posted as a Medium article I wrote way back in early 2025._
 
 I see a pervading idea in the AI hype-space that "AI" will replace programmers and those who build apps and software services. The idea is that these people are at risk of becoming obsolete because AI will replace them. The assumption seems to be that the company will be able to build apps and services much more cheaply and quickly by replacing these costly engineers with AI; continuing on as normal selling their app or service.
 
@@ -12,7 +12,6 @@ But if AI is actually going to advance to a level that replaces programmers, the
 
 The problem with the idea is that if AI can accomplish what it once took an entire company to do with a team of engineers, then the company itself will be obsolete.
 
-Download the Medium app
 The "end stage" of AI progression brings with it not just the end of programmers, designers and those who build things for computers, but the end of the software company itself. If anyone can make use of AI to build just about any app or service they want, then the company-selling-a-service/app model is over. The way we interact with computers will fundamentally change. The average person will largely interact with computers through AI and quick niche interfaces and ephemeral apps that the AI can render for us on the fly. Each user will essentially have a collection of their own custom apps; not from any company, but built on the fly. The companies providing the ML models (OpenAI, Google, etc) will be part of a new class of utility services that will provide a new interface to the computer.
 
 The other side of the coin for the idea that "software companies won't be hiring programmers anymore" is, "software companies won't exist anymore." This old way of interfacing with computers will slowly go away. If every person has a little prompt box that can produce and generate just about any kind of interface or app, then stodgy old apps that you can't modify or control and have to pay for or subscribe to will go the way of the buggy whip. When a user can type in, "make me a beautiful e-commerce website and interface to upload my products" and boom there it is, then we have no need for Shopify. If a user can type, "pull up an interface where I can read my email." Then we don't need Gmail. And it will be much "better" than Gmail since the user can add on to it infinitely. You wouldn't have to wait for updates and new features to software. The only companies left will be those that provide data and raw apis to interface directly with AI.
