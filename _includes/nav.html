@@ -1,0 +1,14 @@
+{% assign home = "/" %}
+{% if page.url == "/" %}{% assign home = "" %}{% endif %}
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="{{ home }}#hero" class="nav-logo"><span class="mono-prefix">~/</span>jm</a>
+    <ul class="nav-links">
+      <li><a href="{{ home }}#about">About</a></li>
+      <li><a href="{{ home }}#experience">Experience</a></li>
+      <li><a href="{{ home }}#projects">Projects</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="{{ home }}#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
