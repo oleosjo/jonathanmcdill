@@ -3,6 +3,7 @@ description: Writing by Jonathan McDill.
 url: "https://jonathanmcdill.com"
 permalink: /blog/:title/
 timezone: America/New_York
+counterdev: ee94ae83-2d5d-4a07-88e6-8c3e8a740713
 exclude:
   - component-lab
   - node_modules
