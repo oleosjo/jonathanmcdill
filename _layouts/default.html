@@ -8,6 +8,12 @@
       name="description"
       content="{{ page.description | default: site.description | escape }}"
     />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="{{ site.title | escape }} RSS"
+      href="{{ '/feed.xml' | absolute_url }}"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

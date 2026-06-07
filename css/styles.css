@@ -1047,6 +1047,23 @@ footer {
   margin-bottom: 64px;
 }
 
+.blog-rss-link {
+  color: var(--mint);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(120, 212, 200, 0.35);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.blog-rss-link::before {
+  content: " / ";
+  color: var(--text-dim);
+}
+
+.blog-rss-link:hover {
+  color: var(--lavender);
+  border-color: rgba(168, 158, 224, 0.5);
+}
+
 .post-list {
   list-style: none;
   display: flex;
